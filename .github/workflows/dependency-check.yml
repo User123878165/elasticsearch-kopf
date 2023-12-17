@@ -1,0 +1,29 @@
+name: OWASP Dependency Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security_scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install NPM dependencies
+      run: npm install
+
+    - name: OWASP Dependency Check
+      uses: DependencyTrack/dependency-check-action@v3
+      with:
+        format: 'HTML'
+        failBuildOnCVSS: 7
+        path: './'

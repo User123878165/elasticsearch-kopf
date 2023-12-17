@@ -25,11 +25,13 @@ jobs:
           format: 'HTML'
           out: 'reports'
           args: >
-            --failOnCVSS 7
+            --failOnCVSS 5
             --enableRetired
 
       - name: Upload Dependency Check report
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
+        if: always()
         with:
-           name: Depcheck report
-           path: ${{github.workspace}}/reports
+          name: Depcheck report
+          path: reports/
+
